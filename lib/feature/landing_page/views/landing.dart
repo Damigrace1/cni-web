@@ -135,12 +135,13 @@ class _LandingPageState extends State<LandingPage> {
             ),
             const EventSlider(),
             Container(
-              height: 100.h,
+              height: 10.h,
               width: double.infinity,
               alignment: Alignment.center,
               child: ListView.separated(
                   itemCount: 3,
                   shrinkWrap: true,
+                  padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
                   separatorBuilder: (c, i) => SizedBox(
                     width: 12.w,

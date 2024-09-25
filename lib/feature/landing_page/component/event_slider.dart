@@ -44,9 +44,10 @@ class _EventSliderState extends State<EventSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 250,
       child: PageView.builder(
         itemCount: 3,
+
         controller: controller,
               onPageChanged: (i) {
                 setState(() {
@@ -56,7 +57,7 @@ class _EventSliderState extends State<EventSlider> {
             Center(
               child: Container(
                 // height: 200,
-                  margin: EdgeInsets.symmetric(horizontal: 24),
+                  margin: EdgeInsets.symmetric(horizontal: 24,vertical: 20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.appGreen.withOpacity(0.2)),
