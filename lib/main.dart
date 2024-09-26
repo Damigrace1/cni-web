@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               themeMode: ThemeMode.light,
               theme: ThemeData(
-                textTheme: GoogleFonts.alegreyaTextTheme(
+                textTheme: GoogleFonts.poppinsTextTheme(
                   Theme.of(context).textTheme, // Use default theme styles and override them
                 ),
               ),

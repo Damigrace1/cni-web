@@ -1,10 +1,6 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cni_web/feature/landing_page/component/registration_form.dart';
 import 'package:cni_web/feature/landing_page/controllers/home_controller.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
 
@@ -12,7 +8,7 @@ import '../../../shared/widgets/buttons.dart';
 import '../../../utils/colors.dart';
 
 class EventSlider extends StatefulWidget {
-  const EventSlider({Key? key}) : super(key: key);
+  const EventSlider({super.key});
 
   @override
   State<EventSlider> createState() => _EventSliderState();
@@ -57,16 +53,16 @@ class _EventSliderState extends State<EventSlider> {
             Center(
               child: Container(
                 // height: 200,
-                  margin: EdgeInsets.symmetric(horizontal: 24,vertical: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 12),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       color: AppColors.appGreen.withOpacity(0.2)),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Global Fire Conference 2024',
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
@@ -75,13 +71,14 @@ class _EventSliderState extends State<EventSlider> {
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Row(
                         children: [
-                          Expanded(
+                          const Expanded(
                               child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text('Date',
                                       style: TextStyle(
@@ -105,26 +102,25 @@ class _EventSliderState extends State<EventSlider> {
                                     buttonColor: AppColors.appGreen,
                                   ),
                                 ],
-                                crossAxisAlignment: CrossAxisAlignment.start,
                               )),
                           Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text('Venue',
+                                  const Text('Venue',
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 12,
                                           fontWeight: FontWeight.bold)),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   ),
-                                  Text('RCCG Yaba, Idanre',
+                                  const Text('RCCG Yaba, Idanre',
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold)),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 30,
                                   ),
                                   AppButton(
@@ -132,23 +128,24 @@ class _EventSliderState extends State<EventSlider> {
                                       showModalBottomSheet(
                                         context: context,
                                         isScrollControlled: true, // Allows full height bottom sheet
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
                                         ),
                                         builder: (BuildContext context) {
-                                          return RegForm();
+                                          return const RegForm();
                                         },
                                       );
                                     },
+                                    buttonColor: AppColors.appGreen,
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'Register',
                                           style:
                                           TextStyle(color: AppColors.appWhite),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 24,
                                         ),
                                         Image.asset(
@@ -158,7 +155,6 @@ class _EventSliderState extends State<EventSlider> {
                                         )
                                       ],
                                     ),
-                                    buttonColor: AppColors.appGreen,
                                   ),
                                 ],
                               )),

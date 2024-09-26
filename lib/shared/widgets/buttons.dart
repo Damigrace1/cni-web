@@ -4,7 +4,7 @@ import '../../utils/colors.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({super.key, this.buttonColor,
-    this.isPrimary = true, this.text, this.child, this.onTap,}): assert(
+    this.isPrimary = true, this.text, this.child, this.onTap, this.width,}): assert(
   (child != null && text == null) || (child == null && text != null)
   );
   final Color? buttonColor;
@@ -12,11 +12,13 @@ class AppButton extends StatelessWidget {
   final String? text;
   final Widget? child;
   final Function()? onTap;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       child: Container(
+        width: width,
           padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
           decoration: BoxDecoration(
               color: isPrimary ?

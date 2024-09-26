@@ -2,6 +2,8 @@ import 'package:cni_web/shared/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
 class RegForm extends StatefulWidget {
+  const RegForm({super.key});
+
   @override
   _RegFormState createState() => _RegFormState();
 }
@@ -28,13 +30,13 @@ class _RegFormState extends State<RegForm> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              const Text(
                 'Enter Your Details',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Name'),
                 onSaved: (value) => _name = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -44,7 +46,7 @@ class _RegFormState extends State<RegForm> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (value) => _email = value,
                 validator: (value) {
@@ -58,7 +60,7 @@ class _RegFormState extends State<RegForm> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Phone'),
+                decoration: const InputDecoration(labelText: 'Phone'),
                 keyboardType: TextInputType.phone,
                 onSaved: (value) => _phone = value,
                 validator: (value) {
@@ -71,7 +73,7 @@ class _RegFormState extends State<RegForm> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               AppButton(
                 onTap: () {
                   if (_formKey.currentState?.validate() ?? false) {
@@ -85,7 +87,7 @@ class _RegFormState extends State<RegForm> {
                 },
                 text: 'Submit',
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             ],
           ),
         ),
