@@ -4,11 +4,15 @@ import '../../utils/colors.dart';
 
 class AppButton extends StatelessWidget {
   const AppButton({super.key, this.buttonColor,
-    this.isPrimary = true, this.text, this.child, this.onTap, this.width,}): assert(
+    this.loading =false,
+    this.isPrimary = true, this.text, this.child,
+    this.centerAlign = false, this.onTap, this.width,}): assert(
   (child != null && text == null) || (child == null && text != null)
   );
   final Color? buttonColor;
   final bool isPrimary;
+  final bool loading;
+  final bool centerAlign;
   final String? text;
   final Widget? child;
   final Function()? onTap;
@@ -18,6 +22,7 @@ class AppButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
+        alignment: centerAlign ? Alignment.center : null,
         width: width,
           padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
           decoration: BoxDecoration(
@@ -25,7 +30,9 @@ class AppButton extends StatelessWidget {
               (buttonColor ?? AppColors.appRed) : Colors.transparent,
               border: Border.all(color:  buttonColor ?? AppColors.appRed)
           ),
-          child: text != null ? Text(text!,
+          child:
+          loading ? SizedBox(height: 20,width: 20,child: CircularProgressIndicator.adaptive(strokeWidth: 2),) :
+          text != null ? Text(text!,
             style: TextStyle(color: buttonColor ?? AppColors.appWhite),
           ): child
       ),

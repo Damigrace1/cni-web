@@ -1,3 +1,4 @@
+import '../../../utils/strings.dart';
 import '../component/body2.dart';
 import '../exports.dart';
 
@@ -98,7 +99,62 @@ class _LandingPageState extends State<LandingPage> {
                         ],
                       ),
               ),
-              SizedBox(height: 30,),
+                  SizedBox(height: 30,),
+                  constraints.maxWidth > 900?
+                  Row(
+                    children: [
+                      ReadMoreBox(
+                        title: 'History of CNI',
+                        body: cniHistory,
+                      ),
+                      SizedBox(width: 12,),
+                      ReadMoreBox(
+                        title: 'Our Vision and Mandate',
+                        body: cniVisMand,
+                      ),
+                    ],
+                  ) :
+                  Column(
+                    children: [
+                      ReadMoreBox(
+                        title: 'History of CNI',
+                        body: cniHistory,
+                      ),
+                      SizedBox(height: 12,),
+                      ReadMoreBox(
+                        title: 'Our Vision and Mandate',
+                        body: cniVisMand,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(12),
+                     child:  constraints.maxWidth > 900?
+                  Row(
+                    children: [
+                      ContactCard(),
+                      SizedBox(width: 10,),
+                      ContactUs()
+                    ],
+                  ) :
+                  Column(
+
+                    children: [
+                      ContactCard(),
+                      SizedBox(height: 30,),
+                      ContactUs()
+                    ],
+                  )),
+                  SizedBox(),
+                  Container(
+                    width: double.infinity,
+                    color: Colors.black87,
+                    padding:EdgeInsets.all(12),
+                    child: Text('Copyrights © 2024 Catalyst Network International.',
+                    style: TextStyle(color: AppColors.appGrey),),
+                  )
+
+
             ]),
           );
         },
@@ -107,6 +163,125 @@ class _LandingPageState extends State<LandingPage> {
   }
 }
 
+class ContactUs extends StatelessWidget {
+  const ContactUs({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('Get in Touch', style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600,
+            color: AppColors.appRed)),
+        SizedBox(height: 20),
+        Text('Don\'t hesitate Contact Us', style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600,
+            color: AppColors.appBlack)),
+        SizedBox(height: 30),
+        AppButton(
+          text: 'Contact Us',
+          onTap: (){},
+        )
+      ],
+    );
+  }
+}
 
+class ContactCard extends StatelessWidget {
+  const ContactCard({
+    super.key,
+  });
 
+  @override
+  Widget build(BuildContext context) {
+    return Animate(
+      effects: [
+        SlideEffect(
+         begin: Offset(0,0),
+         end: Offset(0,0.1),
+          duration: 3000.ms,
+        ),
+
+      ],
+      delay: 100.ms,
+      autoPlay: true,
+      onPlay: (controller) => controller.repeat(reverse: true),
+      child: Container(
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.appRed,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            ColorFiltered(
+
+                child: Image.asset('assets/icons/message.png',width: 24,),
+            colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcATop),),
+            SizedBox(height: 20),
+            Text('Call', style: TextStyle(fontSize: 25,fontWeight: FontWeight.w900,
+            color: AppColors.appWhite),),
+            SizedBox(height: 20),
+            Text('Technical Road, Idanre, Ondo State.', style: TextStyle(fontSize: 16,
+                color: AppColors.appWhite),),
+            SizedBox(height: 20),
+            Text('+2348103373964', style: TextStyle(fontSize: 23,fontWeight: FontWeight.w800,
+                color: AppColors.appWhite),),
+            SizedBox(height: 20),
+            Text('ogdamtim@gmail.com', style: TextStyle(fontSize: 16,
+                color: AppColors.appWhite),),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReadMoreBox extends StatelessWidget {
+  const ReadMoreBox({
+    super.key, required this.body, required this.title,
+  });
+
+  final String body;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      constraints: BoxConstraints(maxWidth: 400),
+      padding: EdgeInsets.all(12),
+      margin: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+
+          border: Border(bottom: BorderSide(
+              width: 2,
+              color: AppColors.appRed))
+      ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(title,
+
+          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),)
+        ,
+        SizedBox(height: 30,),
+
+        Text(body.substring(0,98),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(color: AppColors.appGrey),),
+        SizedBox(height: 30,),
+        TextButton(onPressed: (){}, child: Container(
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(
+                  width: 2,
+                  color: AppColors.appRed))
+            ),
+            child: Text('Read More',style: TextStyle(color: AppColors.appRed),)))
+      ],
+    ),);
+  }
+}
