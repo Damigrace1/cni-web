@@ -44,7 +44,7 @@ class C1 extends StatelessWidget {
             height: 12,
           ),
           const AppButton(
-            text: 'READ ABOUT MINISTRY',
+            text: 'ABOUT US',
           ),
         ]
             .animate(autoPlay: true)

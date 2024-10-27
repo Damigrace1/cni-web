@@ -47,7 +47,7 @@ class Body2 extends StatelessWidget {
                   ),
                   title: 'Place of Heaven',
                   body:
-                  'In CNI you will feel divinity, piety, goodness, faith or right beliefs.'),
+                  'At CNI you will feel divinity, power, goodness, faith and lot more...'),
             ),
             SizedBox(
               width: 20,

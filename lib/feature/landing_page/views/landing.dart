@@ -22,19 +22,19 @@ class _LandingPageState extends State<LandingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
      // drawer: AppDrawer(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: SizedBox(
-          height: 40,
-          child: Image.asset('assets/images/logo.png'),
-        ),
-        actions: [
-          //   Image.asset('assets/icons/search.png',width: 24,),
-          SizedBox(
-            width: 12.w,
-          )
-        ],
-      ),
+     //  appBar: AppBar(
+     //    centerTitle: true,
+     //    title: SizedBox(
+     //      height: 40,
+     //      child: Image.asset('assets/images/logo.png'),
+     //    ),
+     //    actions: [
+     //      //   Image.asset('assets/icons/search.png',width: 24,),
+     //      SizedBox(
+     //        width: 12.w,
+     //      )
+     //    ],
+     //  ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return SingleChildScrollView(
@@ -238,7 +238,7 @@ class ContactCard extends StatelessWidget {
   }
 }
 
-class ReadMoreBox extends StatelessWidget {
+class ReadMoreBox extends StatefulWidget {
   const ReadMoreBox({
     super.key, required this.body, required this.title,
   });
@@ -247,9 +247,17 @@ class ReadMoreBox extends StatelessWidget {
   final String title;
 
   @override
+  State<ReadMoreBox> createState() => _ReadMoreBoxState();
+}
+
+class _ReadMoreBoxState extends State<ReadMoreBox> {
+
+  bool showFull = false;
+  @override
   Widget build(BuildContext context) {
 
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 500),
       constraints: BoxConstraints(maxWidth: 400),
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.all(12),
@@ -263,18 +271,25 @@ class ReadMoreBox extends StatelessWidget {
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
+        Text(widget.title,
 
           style: TextStyle(fontWeight: FontWeight.w900, fontSize: 20),)
         ,
         SizedBox(height: 30,),
 
-        Text(body.substring(0,98),
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
+        Text(
+          showFull ?  widget.body :
+          widget.body.substring(0,98),
+          maxLines: showFull ? null : 2,
+          overflow: showFull ? null : TextOverflow.ellipsis,
           style: TextStyle(color: AppColors.appGrey),),
         SizedBox(height: 30,),
-        TextButton(onPressed: (){}, child: Container(
+        if(!showFull)
+        TextButton(onPressed: (){
+          setState(() {
+            showFull = true;
+          });
+        }, child: Container(
             decoration: BoxDecoration(
               border: Border(bottom: BorderSide(
                   width: 2,

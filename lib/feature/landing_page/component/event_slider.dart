@@ -88,7 +88,7 @@ class _EventSliderState extends State<EventSlider> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('Nov 24 - 27, 2024',
+                                  Text('Nov 29 - 30, 2024',
                                       style: TextStyle(
                                           height: 1,
                                           fontSize: 16,

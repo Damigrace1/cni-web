@@ -47,7 +47,7 @@ class C2 extends StatelessWidget {
             height: 12,
           ),
           const AppButton(
-            text: 'READ ABOUT MINISTRY',
+            text: 'GET IN TOUCH',
           ).animate().slideY(
               begin: 20,
               end: 1,
