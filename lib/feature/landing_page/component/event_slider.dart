@@ -1,5 +1,6 @@
 import 'package:cni_web/feature/landing_page/component/registration_form.dart';
 import 'package:cni_web/feature/landing_page/controllers/home_controller.dart';
+import 'package:cni_web/feature/landing_page/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/get_instance.dart';
@@ -37,6 +38,8 @@ class _EventSliderState extends State<EventSlider> {
     controller.dispose();
     super.dispose();
   }
+  final _eventSliderKey = GlobalKey();
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -74,91 +77,96 @@ class _EventSliderState extends State<EventSlider> {
                       const SizedBox(
                         height: 35,
                       ),
-                      Row(
-                        children: [
-                          const Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Date',
-                                      style: TextStyle(
-                                          height: 1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text('Nov 29 - 30, 2024',
-                                      style: TextStyle(
-                                          height: 1,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  AppButton(
-                                    text: 'More details',
-                                    isPrimary: false,
-                                    buttonColor: AppColors.appGreen,
-                                  ),
-                                ],
-                              )),
-                          Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Venue',
-                                      style: TextStyle(
-                                          height: 1,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold)),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const Text('RCCG Yaba, Idanre',
-                                      style: TextStyle(
-                                          height: 1,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold)),
-                                  const SizedBox(
-                                    height: 30,
-                                  ),
-                                  AppButton(
-                                    onTap: (){
-                                      showModalBottomSheet(
-                                        context: context,
-                                        isScrollControlled: true, // Allows full height bottom sheet
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-                                        ),
-                                        builder: (BuildContext context) {
-                                          return const RegForm();
-                                        },
-                                      );
-                                    },
-                                    buttonColor: AppColors.appGreen,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        const Text(
-                                          'Register',
-                                          style:
-                                          TextStyle(color: AppColors.appWhite),
-                                        ),
-                                        const SizedBox(
-                                          width: 24,
-                                        ),
-                                        Image.asset(
-                                          'assets/icons/user-tag.png',
-                                          width: 20,
-                                          color: AppColors.appWhite,
-                                        )
-                                      ],
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                             Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('Date',
+                                        style: TextStyle(
+                                            height: 1,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold)),
+                                    SizedBox(
+                                      height: 10,
                                     ),
-                                  ),
-                                ],
-                              )),
-                        ],
+                                    Text('Nov 29 - 30, 2024',
+                                        style: TextStyle(
+                                            height: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold)),
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    AppButton(
+                                      text: 'More details',
+                                      isPrimary: false,
+                                      buttonColor: AppColors.appGreen,
+                                    ),
+                                  ],
+                                )),
+                            Expanded(
+                                child: Column(
+
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Venue',
+                                        style: TextStyle(
+                                            height: 1,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold)),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    const Text('Grace of God secondary school, behind Technical college, Idanre.',
+                                        style: TextStyle(
+                                            height: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold)),
+                                    const SizedBox(
+                                      height: 30,
+                                    ),
+                                    AppButton(
+                                      onTap: (){
+                                        Get.to(()=>RegForm(eventName: 'GFC \'24',));
+                                        // showModalBottomSheet(
+                                        //   context: context,
+                                        //   isScrollControlled: true, // Allows full height bottom sheet
+                                        //   shape: const RoundedRectangleBorder(
+                                        //     borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+                                        //   ),
+                                        //   builder: (BuildContext context) {
+                                        //     return const RegForm();
+                                        //   },
+                                        // );
+                                      },
+                                      buttonColor: AppColors.appGreen,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Text(
+                                            'Register',
+                                            style:
+                                            TextStyle(color: AppColors.appWhite),
+                                          ),
+                                          const SizedBox(
+                                            width: 24,
+                                          ),
+                                          Image.asset(
+                                            'assets/icons/user-tag.png',
+                                            width: 20,
+                                            color: AppColors.appWhite,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
                       ),
                     ],
                   )),

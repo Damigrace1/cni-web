@@ -4,9 +4,11 @@ class AnimatedText extends StatelessWidget {
   final String text;
   final Duration duration;
   final TextStyle? style;
+  final bool replay;
 
   AnimatedText({required this.text,
     this.style,
+    this.replay = false,
     this.duration = const Duration(milliseconds: 300), this.c});
 final AnimationController? c;
   @override
@@ -27,6 +29,9 @@ final AnimationController? c;
             ),
             FadeEffect(duration: duration),
           ],
+          // onPlay: replay ? (controller) => controller.repeat(
+          //   period: Duration(milliseconds: 300)
+          // ) : null,
           delay: (duration * index).inMilliseconds.ms, // Delay each letter's appearance
           child: Text(
             letter,

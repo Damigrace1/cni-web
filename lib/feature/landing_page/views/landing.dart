@@ -171,6 +171,8 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start
+      ,
       children: [
         Text('Get in Touch', style: TextStyle(fontSize: 22,fontWeight: FontWeight.w600,
             color: AppColors.appRed)),
@@ -263,7 +265,7 @@ class _ReadMoreBoxState extends State<ReadMoreBox> {
       margin: EdgeInsets.all(12),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-
+          color: AppColors.appBlue.withOpacity(0.1),
           border: Border(bottom: BorderSide(
               width: 2,
               color: AppColors.appRed))

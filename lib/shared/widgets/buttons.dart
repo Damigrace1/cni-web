@@ -6,7 +6,7 @@ class AppButton extends StatelessWidget {
   const AppButton({super.key, this.buttonColor,
     this.loading =false,
     this.isPrimary = true, this.text, this.child,
-    this.centerAlign = false, this.onTap, this.width,}): assert(
+    this.centerAlign = false, this.onTap, this.width,this.padding}): assert(
   (child != null && text == null) || (child == null && text != null)
   );
   final Color? buttonColor;
@@ -17,6 +17,7 @@ class AppButton extends StatelessWidget {
   final Widget? child;
   final Function()? onTap;
   final double? width;
+  final EdgeInsets? padding;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -24,7 +25,8 @@ class AppButton extends StatelessWidget {
       child: Container(
         alignment: centerAlign ? Alignment.center : null,
         width: width,
-          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+
+          padding: padding ?? const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
           decoration: BoxDecoration(
               color: isPrimary ?
               (buttonColor ?? AppColors.appRed) : Colors.transparent,
