@@ -1,6 +1,18 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:excel/excel.dart' hide Border;
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:path_provider/path_provider.dart';
+import '../../../main.dart';
 import '../../../utils/strings.dart';
+import '../../domain/model/users_data.dart';
 import '../component/body2.dart';
 import '../exports.dart';
+
+
+
+late FToast fToast;
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -11,10 +23,41 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   late HomeController _homeController;
+  List<User> results = [];
+  showToast(String message, {Color? color,Color? textColor}) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        color: color??AppColors.appWhite,
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset('assets/images/logo.png',width: 16,),
+          SizedBox(
+            width: 12.0,
+          ),
+          Text(message,style: TextStyle(color: textColor),),
+        ],
+      ),
+    );
+
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: Duration(seconds: 2,milliseconds: 500),
+    );
+
+
+  }
   @override
   void initState() {
     // TODO: implement initState
     _homeController = Get.put(HomeController());
+    fToast = FToast();
+    fToast.init(navigatorKey.currentContext??context);
     super.initState();
   }
 
@@ -150,8 +193,61 @@ class _LandingPageState extends State<LandingPage> {
                     width: double.infinity,
                     color: Colors.black87,
                     padding:EdgeInsets.all(12),
-                    child: Text('Copyrights © 2024 Catalyst Network International.',
-                    style: TextStyle(color: AppColors.appGrey),),
+                    child: InkWell(
+                      child: Text('Copyrights © 2024 Catalyst Network International.',
+                      style: TextStyle(color: AppColors.appGrey),),
+                      onLongPress: ()async{
+                        String? enteredCode;
+                      final isAdmin =  await showDialog(context: context, builder: (context){
+                        // return AlertDialog(
+                        //   backgroundColor: Colors.transparent,
+                        //   content: Container(
+                        //     height: 100,
+                        //     width: 100,
+                        //     color: Colors.red,
+                        //   ),
+                        // );
+                        return AlertDialog(
+                          content: Container(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  onChanged: (v){
+                                    enteredCode = v;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter Admin code'
+                                  ),
+                                ),
+                                SizedBox(height: 12,),
+                                AppButton(text: 'Submit',onTap: (){
+                                  Get.back(result: enteredCode?.toLowerCase() == '@cniadmin');
+                                },)
+                              ],
+                            ),
+                          ),
+                        );
+                      });
+                      if(!isAdmin)return;
+                        showLoader(context);
+                        final FirebaseFirestore firestore =
+                            FirebaseFirestore.instance;
+                       final usersSnapshot =  await firestore
+                            .collection('users')
+                            .get();
+
+                       final docs = usersSnapshot.docs;
+                       users = [];
+                       for(var d in docs){
+                         users.add(User.fromMap(d.data()));
+                       }
+                        Get.back();
+                       result2Xcel();
+
+                      },
+                      splashColor: Colors.transparent,
+                    ),
                   )
 
 
@@ -162,7 +258,98 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 }
+List<User> users = [];
+showToast(String message, {Color? color,Color? textColor}) {
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8.0),
+      color: color??AppColors.appWhite,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Image.asset('assets/images/logo.png',width: 16,),
+        SizedBox(
+          width: 12.0,
+        ),
+        Text(message,style: TextStyle(color: textColor),),
+      ],
+    ),
+  );
 
+
+  fToast.showToast(
+    child: toast,
+    gravity: ToastGravity.BOTTOM,
+    toastDuration: Duration(seconds: 2,milliseconds: 500),
+  );
+
+
+}
+result2Xcel()async{
+  var excel = Excel.createExcel();
+  excel.rename('Sheet1', 'GFC 24');
+  Sheet sheet = excel['GFC 24'];
+  sheet.appendRow([
+    TextCellValue('Name'),
+    TextCellValue('Church'),
+    TextCellValue('Address'),
+    TextCellValue('Gender'),
+    TextCellValue('Participation'),
+    TextCellValue('Phone'),
+    TextCellValue('Reg Date'),
+    TextCellValue('School'),
+    TextCellValue('Testimony'),
+
+  ]);
+  for(var cell in sheet.row(0)){
+    cell?.cellStyle =  CellStyle(
+      bold: true
+    );
+  }
+  for(var user in users){
+    sheet.appendRow([
+      TextCellValue(user.name??''),
+      TextCellValue(user.church??''),
+      TextCellValue(user.address??''),
+      TextCellValue(user.gender??''),
+      TextCellValue(user.participation??''),
+      TextCellValue(user.phone??''),
+      TextCellValue('${user.regDate?.day} ${user.regDate?.month} ${user.regDate?.year}'??''),
+      TextCellValue(user.school??''),
+      TextCellValue(user.testimony??''),
+
+    ]);
+  }
+  var fileBytes = excel.save();
+  if (fileBytes != null) {
+    //final directory = await getExternalStorageDirectory();
+    final file = File('/storage/emulated/0/Download/GFC 24 Attendance.xlsx')
+      ..createSync(recursive: true)
+      ..writeAsBytesSync(fileBytes);
+    showToast('Result Downloaded',textColor: AppColors.appWhite,
+    color: Colors.black.withOpacity(0.8));
+  }
+}
+void showLoader(BuildContext context) {
+  showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.transparent,
+        content: SizedBox(
+          height: 100,
+          width: 100,
+          child: Center(
+            child: SizedBox(
+              width: 15,height: 15,
+              child: CircularProgressIndicator.adaptive(strokeWidth: 2,),
+            ),
+          )
+        ),
+      ));
+}
 class ContactUs extends StatelessWidget {
   const ContactUs({
     super.key,

@@ -41,6 +41,7 @@ class _DropDownFieldState extends State<DropDownField> {
               child: Text(
                 widget.title,
                 style: TextStyle(
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.bold, color: AppColors.appGreen),
               ),
             ),

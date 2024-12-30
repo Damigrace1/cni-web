@@ -1,12 +1,15 @@
 import 'package:cni_web/feature/landing_page/exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'feature/landing_page/views/landing.dart';
 import 'firebase_options.dart';
+
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,8 @@ class MyApp extends StatelessWidget {
         designSize: const Size(375, 812),
         builder: (context, _) {
           return  GetMaterialApp(
+              builder: FToastBuilder(),
+              navigatorKey: navigatorKey,
               debugShowCheckedModeBanner: false,
               themeMode: ThemeMode.light,
               theme: ThemeData(

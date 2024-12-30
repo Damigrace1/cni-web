@@ -33,6 +33,7 @@ class AppFormField extends StatelessWidget {
               child: Text(
                 fieldName,
                 style: TextStyle(
+                  fontSize: 12.sp,
                     fontWeight: FontWeight.bold, color: AppColors.appGreen),
               ),
             ),
